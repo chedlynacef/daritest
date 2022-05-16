@@ -1,0 +1,13 @@
+
+<div class="parent">
+<div class="" *ngIf="this.isAdmin()" >
+    <app-admin-bar ></app-admin-bar>
+</div>
+<div class="div1" *ngIf="!this.isAdmin()" >
+    <app-navbar ></app-navbar>
+</div>
+<div class="div2" >
+    <router-outlet></router-outlet>
+</div>
+<notifier-container></notifier-container>
+</div>

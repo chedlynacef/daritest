@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css);
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css';
+@import 'https://use.fontawesome.com/releases/v5.8.1/css/all.css';
+@import "~angular-notifier/styles";
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}

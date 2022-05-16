@@ -1,0 +1,7 @@
+package tn.dari.Exception.domain;
+
+public class UserNotFoundException extends Exception {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}

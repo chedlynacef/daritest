@@ -1,0 +1,22 @@
+
+  <header role="banner" class="probootstrap-header">
+    <div class="container">
+        <a href="/home" class="probootstrap-logo">dari<span>.tn</span></a>
+
+        <nav role="navigation" class="probootstrap-nav hidden-xs">
+          <ul class="probootstrap-main-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="agents.html">Agents</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+                <li *ngIf="!isAuthenticated()"><a href="/login" style="font-weight: bold;">login</a></li>
+                <li *ngIf="!isAuthenticated()"><a href="/register" style="font-weight: bold;">register</a></li>
+
+            <li *ngIf="isAuthenticated()" ><a (click)="onLogOut()" style="font-weight: bold;">logout</a></li>
+          </ul>
+    
+        </nav>
+    </div>
+  </header>

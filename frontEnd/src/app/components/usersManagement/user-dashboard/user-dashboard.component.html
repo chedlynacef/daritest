@@ -1,0 +1,349 @@
+<div class="container">
+    <div class="col-md-12">
+      <div class="add-new">
+        <button
+          type="button"
+          class="btn btn-info"
+          data-toggle="modal"
+          data-target="#addModal"
+        >
+          add
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table
+          class="table table-bordered hover table-dark ">
+          <thead class="thead-default">
+            <tr>
+              <th>username</th>
+              <th>first name</th>
+              <th>last name</th>
+              <th>email</th>
+              <th>role</th>
+              <th>Date</th>
+              <th>account lock status</th>
+              <th>creation Date</th>
+              <th>last login Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.username }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>{{ user.date }}</td>
+              <td>{{ user.notLocked }}</td>
+              <td>{{ user.cDate }}</td>
+              <td>{{ user.lDate }}</td>
+              <td>
+                <div class="btn-group">
+                  <button
+                    class="btn btn-secondary fa fa-pencil"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#updateModal"
+                    (click)="setUser(user)"
+                  ></button>
+                  <button
+                    class="btn btn-secondary fa fa-trash"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#deleteModal"
+                    (click)="setUser(user)"
+                  ></button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!users">
+              <td>
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Add Modal -->
+<div
+class="modal fade"
+id="addModal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="addModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title" id="addScheduleModalLabel">user</h1>
+    </div>
+
+    <div class="modal-body">
+      <form #addForm="ngForm" (submit)="onAddUser(addForm)">
+        <input type="text" id="id" value="0" hidden />
+        <div class="form-group">
+          <label for="userName">username</label>
+          <input
+            type="text"
+            ngModel
+            name="username"
+            class="form-control"
+            id="username"
+            placeholder="insert username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">first name</label>
+          <input
+            type="text"
+            ngModel
+            name="firstName"
+            class="form-control"
+            id="firstName"
+            placeholder="user's first name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="name">last name</label>
+          <input
+            type="text"
+            ngModel
+            name="lastName"
+            class="form-control"
+            id="lastName"
+            placeholder="user's last name"
+            required
+          />
+        </div>  
+        <div class="form-group">
+          <label for="name">email</label>
+          <input
+            type="email"
+            ngModel
+            name="email"
+            class="form-control"
+            id="email"
+            placeholder="user's email"
+            required
+          />
+        </div>  
+        <div class="form-group">
+          <label for="date">birth date</label>
+          <input
+            type="date"
+            ngModel
+            name="date"
+            class="form-control"
+            id="date"
+            required
+          />
+        </div> 
+        <div class="form-group">
+          <label for="role">user type</label>
+          <select  name="role" class="form-control" id="packageType " ngModel>
+            <option value="" disabled>select user type  </option>
+            <option value="landlord">
+              landlord
+            </option>
+            <option value="buyer">
+              buyer
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">password</label>
+          <input
+            type="password"
+            ngModel
+            name="password"
+            class="form-control"
+            id="password"
+            placeholder="mot de pass de l'utilisateur"
+            required
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="add-schedule-form"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            onclick="location.reload(true)"
+          >
+            cancel
+          </button>
+          <button
+            [disabled]="addForm.invalid"
+            type="submit"
+            class="btn btn-primary"
+            onclick="location.reload(true)"
+          >
+            add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+  <!-- update Modal -->
+  <div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="updateScheduleModalLabel">update user</h1>
+      </div>
+  
+      <div class="modal-body">
+        <form #editForm="ngForm" (submit)="onUpdate(editForm)">
+          <input type="text" name="userId" value="{{this.user.userId}}" hidden />
+          <div class="form-group">
+            <label for="userName">username</label>
+            <input
+              type="text"
+              ngModel
+              name="username"
+              class="form-control"
+              value="{{this.user.username}}"
+              placeholder="insert username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">first name</label>
+            <input
+              type="text"
+              ngModel
+              name="firstName"
+              value="{{this.user.firstName}}"
+              class="form-control"
+              placeholder="user's first name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">last name</label>
+            <input
+              type="text"
+              ngModel
+              name="lastName"
+              value="{{this.user.lastName}}"
+              class="form-control"
+              placeholder="user's last name"
+              required
+            />
+          </div>  
+          <div class="form-group">
+            <label for="name">email</label>
+            <input
+              type="email"
+              ngModel
+              name="email"
+              value="{{this.user.email}}"
+              class="form-control"
+              placeholder="user's email"
+              required
+            />
+          </div>  
+          <div class="form-group">
+            <label for="date">birth date</label>
+            <input
+              type="date"
+              ngModel
+              name="date"
+              value="{{this.user.date}}"
+              class="form-control"
+              required
+            />
+          </div> 
+          <div class="form-group">
+            <label for="role">user type</label>
+            <select  name="role" class="form-control" id="packageType " ngModel>
+              <option value="" disabled>select user type  </option>
+              <option value="landlord">
+                landlord
+              </option>
+              <option value="buyer">
+                buyer
+              </option>
+            </select>
+          </div>
+  
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="add-schedule-form"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onclick="location.reload(true)"
+            >
+              cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onclick="location.reload(true)"
+            >
+              update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+    <!-- delete Modal -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">confirmation</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">confirm delete ?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              no
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="deleteUser(user.userId)"
+            >
+              yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
